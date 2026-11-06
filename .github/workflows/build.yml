@@ -10,6 +10,24 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Show repo files
+        run: |
+          echo "=== root ==="
+          ls -la
+          echo "=== zip files ==="
+          ls -la *.zip || echo "NO ZIP FOUND"
+
+      - name: Find and unzip project
+        run: |
+          ZIP=$(ls *.zip 2>/dev/null | head -1)
+          if [ -z "$ZIP" ]; then
+            echo "No zip file in repo root"
+            exit 1
+          fi
+          echo "Using: $ZIP"
+          unzip -o -q "$ZIP" -d project
+          ls -la project
+
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -18,12 +36,6 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: 8.9
-
-      - name: Show files
-        run: ls -la
-
-      - name: Unzip project
-        run: unzip -o -q MyVPN.zip -d project
 
       - name: Build debug APK
         working-directory: project/MyVPN
