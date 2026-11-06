@@ -1,0 +1,13 @@
+{
+  "servers": [
+    {
+      "name": "سيرفر 1",
+      "address": "your.domain.com",
+      "port": 443,
+      "uuid": "00000000-0000-0000-0000-000000000000",
+      "wsPath": "/vless",
+      "sni": "your.domain.com",
+      "host": "your.domain.com"
+    }
+  ]
+}
